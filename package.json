@@ -8,23 +8,33 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "node server/server.js",
+    "start": "nodemon server/server.js",
     "react-dev": "webpack -D --watch",
-    "test": "jest"
+    "test": "jest",
+    "seed": "node generate_records.js"
   },
   "dependencies": {
+    "async": "^2.6.1",
+    "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
+    "csv-reader": "^1.0.3",
     "express": "^4.16.3",
+    "faker": "^4.1.0",
     "jest": "^23.6.0",
+    "knex": "^0.15.2",
+    "knex-csv-seeder": "^0.4.1",
     "moment": "^2.22.2",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "nodemon": "^1.18.4",
+    "pg": "^7.4.3",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-router-dom": "^4.3.1",
     "sequelize": "^4.38.0",
-    "styled-components": "^2.0.0"
+    "styled-components": "^2.0.0",
+    "uniqid": "^5.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -42,6 +52,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "knex-seed-file": "^0.5.1",
+    "objects-to-csv": "^1.0.1",
     "sequelize-cli": "^4.1.1",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
