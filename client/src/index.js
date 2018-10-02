@@ -7,3 +7,4 @@ import Booking from './components/booking.jsx';
 // , document.getElementById('booking'));
 
 window.Booking = Booking;
+ReactDOM.render(<Booking />, document.getElementById('booking'));

@@ -4,6 +4,12 @@ const port = process.env.PORT || 3004;
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const routes = require('../routes');
+// cassandra db
+const cassandra = require('../database/cassandraDB.js');
+cassandra.connect(err => {
+  if (err) return console.log(err);
+  console.log('Cassandra connected');
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
