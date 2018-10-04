@@ -1,18 +1,30 @@
 const db = require('../database/database.js');
 const cassandra = require('../database/cassandraDB.js');
+const postgres = require('../database/postgresDB');
 
 module.exports = {
   read: (req, res) => {
     console.log('/houses hit');
-    //CASSANDRA DB
-    const house_id = req.params.id;
-    cassandra.execute(
-      `select * from houses where house_id='${house_id}'`,
+    //POSTGRES DATABASE
+    postgres.query(
+      `select * from houses where house_id = '${req.params.id}'`,
       (err, results) => {
         if (err) return console.log(err);
+        console.log(results);
         res.json(results.rows[0]);
       }
     );
+
+    //CASSANDRA DB
+    // const house_id = req.params.id;
+    // cassandra.execute(
+    //   `select * from houses where house_id='${house_id}'`,
+    //   (err, results) => {
+    //     if (err) return console.log(err);
+    //     res.json(results.rows[0]);
+    //   }
+    // );
+
     // OLD DATABASE
     // db.House.sync()
     //   .then(() => {
@@ -37,15 +49,25 @@ module.exports = {
       cleaning_fee
     } = req.body;
     console.log(req.body);
-    cassandra.execute(
-      `insert into houses (house_id, reviews, price_per_night, service_fee, cleaning_fee) values (?,?,?,?,?)`,
+    //Postgres
+    postgres.query(
+      'insert into houses (house_id, reviews, price_per_night, service_fee, cleaning_fee) values($1, $2, $3, $4, $5)',
       [house_id, reviews, price_per_night, service_fee, cleaning_fee],
-      { prepare: true },
       (err, result) => {
-        if (err) return console.log(err);
-        res.send('House created!');
+        if (err) return res.send(400, err);
+        res.json(result);
       }
     );
+
+    // cassandra.execute(
+    //   `insert into houses (house_id, reviews, price_per_night, service_fee, cleaning_fee) values (?,?,?,?,?)`,
+    //   [house_id, reviews, price_per_night, service_fee, cleaning_fee],
+    //   { prepare: true },
+    //   (err, result) => {
+    //     if (err) return console.log(err);
+    //     res.send('House created!');
+    //   }
+    // );
     // db.House.create(req.body).then(() => {
     //   db.House.findOrCreate({ where: { id: req.body.id } }).spread(
     //     (house, created) => {

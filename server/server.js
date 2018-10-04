@@ -5,10 +5,17 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const routes = require('../routes');
 // cassandra db
-const cassandra = require('../database/cassandraDB.js');
-cassandra.connect(err => {
+// const cassandra = require('../database/cassandraDB.js');
+// cassandra.connect(err => {
+//   if (err) return console.log(err);
+//   console.log('Cassandra connected');
+// });
+
+//postgres db
+const postgres = require('../database/postgresDB');
+postgres.connect(err => {
   if (err) return console.log(err);
-  console.log('Cassandra connected');
+  console.log('Postgres Connected');
 });
 
 app.use(bodyParser.json());
