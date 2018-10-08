@@ -7,7 +7,7 @@ module.exports = {
     console.log('/houses hit');
     //POSTGRES DATABASE
     postgres.query(
-      `select * from houses where house_id = '${req.params.id}'`,
+      `select * from houses where id = '${req.params.id}'`,
       (err, results) => {
         if (err) return console.log(err);
         console.log(results);
@@ -79,18 +79,27 @@ module.exports = {
   },
   update: (req, res) => {
     //CASSANDRA DATABASE
-    const { house_id } = req.body;
-    var updates = Object.keys(req.body).map(function(key) {
-      return req.body[key];
-    });
-    cassandra.execute(
-      `UPDATE houses SET ? WHERE key='${house_id}'`,
-      updates,
-      err => {
-        if (err) return res.send(err);
-        res.send('House updated!');
-      }
-    );
+    res.send(400);
+    // const { house_id } = req.body;
+    // var query = 'insert into houses set';
+    // var updates = Object.keys(req.body).forEach(function(key) {
+    //   query += ` ${key} = "${req.body[key]}",`;
+    // });
+    // query = query.slice(0, query.length - 1);
+    // query += ` where id = ${req.body.id}`;
+    // console.log(query);
+    // postgres.query(query, (err, result) => {
+    //   if (err) return console.log(err);
+    //   res.json(result);
+    // });
+    // cassandra.execute(
+    //   `UPDATE houses SET ? WHERE key='${house_id}'`,
+    //   updates,
+    //   err => {
+    //     if (err) return res.send(err);
+    //     res.send('House updated!');
+    //   }
+    // );
     // OLD DATABASE
     // db.House.findById({ id: req.body.id }).then(house => {
     //   house.update({ id: req.body.id }).then(() => {
@@ -99,14 +108,23 @@ module.exports = {
     // });
   },
   destroy: (req, res) => {
-    //CASSANDRA DATABASE
-    cassandra.execute(
-      `DELETE FROM houses WHERE house_id='${req.params.id}'`,
+    // POSTGRES DATABASE
+    postgres.query(
+      `delete from houses where house_id=${req.params.id}`,
       err => {
-        if (err) return res.send(err);
-        res.send('House Deleted');
+        if (err) return res.send(400, 'Could not delete');
+        res.send('Item deleted');
       }
     );
+
+    //CASSANDRA DATABASE
+    // cassandra.execute(
+    //   `DELETE FROM houses WHERE house_id='${req.params.id}'`,
+    //   err => {
+    //     if (err) return res.send(err);
+    //     res.send('House Deleted');
+    //   }
+    // );
     // OLD DATABASE
     // db.House.create({ id: 1 })
     //   .then(house => {
