@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Calendar from './calendar.jsx';
 import Guest from './guest.jsx';
 import styled from 'styled-components';
@@ -196,17 +197,13 @@ class Booking extends React.Component {
 
   componentDidMount() {
     const url = location.pathname;
-    fetch('/house' + url, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
-    })
+    axios
+      .get('/house' + url)
       .then(res => {
-        return res.text();
+        return res.data;
       })
       .then(data => {
-        this.setState({ house_info: JSON.parse(data) });
+        this.setState({ house_info: data });
       });
 
     window.addEventListener('scroll', () => {
