@@ -1,22 +1,25 @@
 config:
   target: 'http://localhost:3004'
   phases:
-    - duration: 20
-      arrivalRate: 200
-  defaults:
-    headers:
-      x-my-service-auth: '987401838271002188298567'
+    - duration: 60
+      arrivalRate: 50
+      rampTo: 1000
+    - duration: 60
+      arrivalRate: 1500
 scenarios:
   - flow:
       - get:
-          url: '/10'
+          url: '/house/{{ $randomNumber(1, 10000) }}'
       - get:
-          url: '/100'
-      - get:
-          url: '/1000'
-      - get:
-          url: '/10000'
-      - get:
-          url: '/100000'
-      - get:
-          url: '/10000000'
+          url: '/house/{{ $randomNumber(10000, 1000000) }}'
+    #   - post:
+    #       url: '/house/'
+    #       json:
+    #         id: 10000000000000,
+    #         house_id: '10'
+    #         reviews: 'testing'
+    #         price_per_night: '23'
+    #         service_fee: '83'
+    #         cleaning_fee: '4903'
+    #   - delete:
+    #       url: '/house/10000000000000'

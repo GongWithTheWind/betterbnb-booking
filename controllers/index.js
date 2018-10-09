@@ -4,13 +4,13 @@ const postgres = require('../database/postgresDB');
 
 module.exports = {
   read: (req, res) => {
-    console.log('/houses hit');
+    // console.log('/houses hit');
     //POSTGRES DATABASE
     postgres.query(
       `select * from houses where id = '${req.params.id}'`,
       (err, results) => {
         if (err) return console.log(err);
-        console.log(results);
+        // console.log(results);
         res.json(results.rows[0]);
       }
     );
@@ -48,7 +48,7 @@ module.exports = {
       service_fee,
       cleaning_fee
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     //Postgres
     postgres.query(
       'insert into houses (house_id, reviews, price_per_night, service_fee, cleaning_fee) values($1, $2, $3, $4, $5)',
@@ -109,13 +109,10 @@ module.exports = {
   },
   destroy: (req, res) => {
     // POSTGRES DATABASE
-    postgres.query(
-      `delete from houses where house_id=${req.params.id}`,
-      err => {
-        if (err) return res.send(400, 'Could not delete');
-        res.send('Item deleted');
-      }
-    );
+    postgres.query(`delete from houses where id=${req.params.id}`, err => {
+      if (err) return res.send(400, 'Could not delete');
+      res.send('Item deleted');
+    });
 
     //CASSANDRA DATABASE
     // cassandra.execute(
