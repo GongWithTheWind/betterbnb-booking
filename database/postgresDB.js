@@ -1,9 +1,10 @@
 const { Client } = require('pg');
 const client = new Client({
-  user: 'postgres',
+  user: 'power_user',
+  host: process.env.POSTGRES_HOST,
+  password: process.env.POSTGRES_PASS,
   database: 'bnb',
   port: 5432
 });
-//connection query and creation of tables
 
 module.exports = client;

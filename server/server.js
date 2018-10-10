@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('newrelic');
 const express = require('express');
 const app = express();
@@ -6,18 +7,19 @@ const port = process.env.PORT || 3004;
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const routes = require('../routes');
-var redis = require('redis');
-var client = redis.createClient();
 const cors = require('cors');
 app.use(cors());
 
-client.on('connect', function() {
-  console.log('Redis client connected');
-});
+// REDIS IMPLEMENTATION
+// var redis = require('redis');
+// var client = redis.createClient();
+// client.on('connect', function() {
+//   console.log('Redis client connected');
+// });
 
-client.on('error', function(err) {
-  console.log('Something went wrong ' + err);
-});
+// client.on('error', function(err) {
+//   console.log('Something went wrong ' + err);
+// });
 // cassandra db
 // const cassandra = require('../database/cassandraDB.js');
 // cassandra.connect(err => {
