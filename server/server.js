@@ -34,11 +34,12 @@ postgres.connect(err => {
   console.log('Postgres Connected');
 });
 
+// console.log('gets passed this');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
-console.log('gets passed this');
 app.use('/:id', express.static('public'));
+
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -47,7 +48,6 @@ app.use(function(req, res, next) {
   );
   next();
 });
-
 app.use('/house', routes);
 
 app.use('/', express.static('public'));

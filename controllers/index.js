@@ -4,7 +4,7 @@ const postgres = require('../database/postgresDB');
 
 module.exports = {
   read: (req, res) => {
-    // console.log('/houses hit');
+    console.log('/houses hit');
     //POSTGRES DATABASE
     postgres.query(
       `select * from houses where id = '${req.params.id}'`,
