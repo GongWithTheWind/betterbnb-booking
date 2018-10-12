@@ -41,7 +41,7 @@ module.exports = {
   },
   create: (req, res) => {
     //CASSANDRA CREATE NEW HOUSE
-    const {
+    var {
       house_id,
       reviews,
       price_per_night,
