@@ -38,7 +38,7 @@ postgres.connect(err => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
-app.use('/loaderio-1cf5031612aec71e52eda2419d91fe53/', (req, res) => {
+app.use('/loaderio-8e4f29f45908aec5a0bb6c856fcc1424/', (req, res) => {
 	res.sendfile(path.join(__dirname + '/loaderio-1cf5031612aec71e52eda2419d91fe53.txt'));
 })
 app.use('/:id', express.static('public'));
